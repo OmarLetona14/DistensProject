@@ -68,6 +68,8 @@ public class Separator {
                         Recipe nuevaReceta = new Recipe(recipesPointer()+1, random.generateIdentifier(), nameRecipe, calories, price,
                         ingredients,typeRecipe,0);
                         recipes[recipesPointer()] = nuevaReceta;
+                        calories = 0;
+                        price = 0;
                     }catch(Exception e){
                         JOptionPane.showMessageDialog(enviroment, "Ocurrió un error al leer las recetas", "Error",
                             JOptionPane.ERROR_MESSAGE);

@@ -76,6 +76,11 @@ public class EnterIngredient extends javax.swing.JFrame {
         });
 
         cancelBtn.setText("Cancelar");
+        cancelBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelBtnActionPerformed(evt);
+            }
+        });
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Direccion ");
@@ -185,6 +190,10 @@ public class EnterIngredient extends javax.swing.JFrame {
                             JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_addBtnActionPerformed
+
+    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_cancelBtnActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

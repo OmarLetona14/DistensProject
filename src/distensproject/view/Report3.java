@@ -18,6 +18,7 @@ public class Report3 extends javax.swing.JFrame {
     String currentMouth, dispensedMouth, currentDispensedMouth, lineStr;
     Calendar calendar = Calendar.getInstance(), currentCalendar = Calendar.getInstance();
     int conteo;
+    boolean counted;
     
     public Report3() {
         initComponents();
@@ -27,6 +28,7 @@ public class Report3 extends javax.swing.JFrame {
             "Marzo", "Abril", "Mayo", "Junio", "Julio",
             "Agosto", "Septiembre", "Octubre", 
             "Noviembre", "Diciembre"};
+        conteoTxtA.setEditable(false);
         generateRecipesItems();
         generateMouthItems();
     }
@@ -136,6 +138,7 @@ public class Report3 extends javax.swing.JFrame {
     private void generateReportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateReportBtnActionPerformed
         conteoTxtA.setText("");
         conteo=0;
+        counted = false;
         currentRecipe = getSelectedRecipe();
         currentMouth = getSelectedMouth();
         if(currentRecipe!=null){
@@ -150,18 +153,21 @@ public class Report3 extends javax.swing.JFrame {
                         if(dispensedMouth.equals(currentDispensedMouth)){
                             if(currentDispensed.getRecipe()==dispensed.getRecipe()){
                                 conteo++;
+                                counted = true;
                             }
                         }
                     }
                 }
-                lineStr = "Receta: " + currentDispensed.getRecipe().getName()+ "\n"+
+                if(counted){
+                    lineStr = "Receta: " + currentDispensed.getRecipe().getName()+ "\n"+
                         "Mes: "+currentMouth + "\n"+
                         "Veces dispensada: " +conteo + "\n";   
-                conteoTxtA.setText(lineStr);
-                
-            }else{
-                JOptionPane.showMessageDialog(this, "Esta receta no ha sido dispensada en el mes de "+currentMouth, "Error",
+                     conteoTxtA.setText(lineStr);
+                }else{
+                    JOptionPane.showMessageDialog(this, "No hay registro de que la receta "+currentRecipe.getName()
+                            +" haya sido dispensada en este mes", "Error",
                             JOptionPane.ERROR_MESSAGE);
+                }  
             }
         }
     }//GEN-LAST:event_generateReportBtnActionPerformed

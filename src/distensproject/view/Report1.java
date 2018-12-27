@@ -20,6 +20,8 @@ public class Report1 extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
+        lessTxtA.setEditable(false);
+        moreTxtA.setEditable(false);
         generateMatrix();
         showMatrix();
     }
@@ -49,7 +51,7 @@ public class Report1 extends javax.swing.JFrame {
                 if(j>=0){
                     currentIngredient = getByUsed(usedMatrix[j], "minus");
                     if(currentIngredient!=null){
-                        minus += currentIngredient.getName() + "\n"; 
+                        minus += currentIngredient.getName()+ ": " +currentIngredient.getUsed() + "\n"; 
                     }
                 }
                 contador++;
@@ -81,9 +83,7 @@ public class Report1 extends javax.swing.JFrame {
     private void generateMatrix(){
         for(Ingredient ingredient: InventoryTableModel.inventory){
             if(ingredient!=null){
-                if(ingredient.getUsed()!=0){
-                    usedMatrix[usedMatrixPointer()] = ingredient.getUsed();
-                }
+                usedMatrix[usedMatrixPointer()] = ingredient.getUsed();
             }
         }
         burbuja(usedMatrix);
