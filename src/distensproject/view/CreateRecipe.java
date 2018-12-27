@@ -17,7 +17,7 @@ public class CreateRecipe extends javax.swing.JFrame {
     private Ingredient[] recipeIngredients = new Ingredient[100];
     Ingredient currIngredient;
     double price, calories;
-    RandomNumber random = new RandomNumber();
+    RandomNumber random = RandomNumber.getSingletonInstance();
     
     
     public CreateRecipe() {

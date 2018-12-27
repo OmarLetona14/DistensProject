@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 public class EnterIngredient extends javax.swing.JFrame {
     
-    RandomNumber random = new RandomNumber();
+    RandomNumber random = RandomNumber.getSingletonInstance();
 
     public EnterIngredient() {
         initComponents();

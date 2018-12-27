@@ -22,7 +22,7 @@ public class Dispensed {
         this.noDispensed = noDispensed;
         this.currentDate = currentDate;
     }
-
+    
     public int getIdDispensed() {
         return idDispensed;
     }

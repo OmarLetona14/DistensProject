@@ -27,7 +27,7 @@ public class Recipe {
         this.recipeType = recipeType;
         this.gain = gain;
     }
-
+    
     public int getIdRecipe() {
         return idRecipe;
     }

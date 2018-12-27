@@ -10,7 +10,6 @@ import distensproject.model.InventoryTableModel;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
-import javax.swing.table.TableRowSorter;
 
 public class Inventory extends javax.swing.JFrame {
 
@@ -18,13 +17,19 @@ public class Inventory extends javax.swing.JFrame {
     boolean  notSelectedTable=true;
     public static Ingredient currentInventory;
     int selected;
+    String emptyInventoryMessagge;
     
     public Inventory() {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
         inventoryTable.setModel(model);
-        
+        generateEmptyInventoryMessagge();
+        if(!emptyInventoryMessagge.equals("")){
+            JOptionPane.showMessageDialog(this, emptyInventoryMessagge, "Información",
+                                JOptionPane.WARNING_MESSAGE);
+        }
+                
         inventoryTable.addMouseListener(new MouseListener(){
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -46,6 +51,16 @@ public class Inventory extends javax.swing.JFrame {
             public void mouseExited(MouseEvent e) {}
         });
         
+    }
+    
+    private void generateEmptyInventoryMessagge(){
+        for(Ingredient inventory: InventoryTableModel.inventory){
+            if(inventory!=null){
+                if(inventory.getInventory()==0){
+                    emptyInventoryMessagge += inventory.getName() +" SIN EXISTENCIAS" +"\n";
+                }
+            }
+        }
     }
 
     /**
@@ -118,7 +133,9 @@ public class Inventory extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    
+    
     private void enterInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterInventoryActionPerformed
         if(!notSelectedTable){
             currentInventory = getByPosition(selected);

@@ -220,6 +220,7 @@ public class Dispenser extends javax.swing.JFrame {
         if(!notSelected){ 
             String msgg = createMessagge(); //Variable que guardará el mensaje que se mostrará en pantalla
             currentRecipe.setGain(currentRecipe.getGain()+currentRecipe.getPrice()); //Agregamos al monto acumulado de esta receta el precio de la misma
+            
             Dispensed newDispensed = new Dispensed(dispensedPointer()+1, currentRecipe, noDispensed, dispensedMatrix,getCurrentDate());
             dispensedList[dispensedPointer()] = newDispensed;
             JOptionPane.showMessageDialog(this, msgg, "Agregado", JOptionPane.INFORMATION_MESSAGE); //Mostramos el mensaje
@@ -359,7 +360,8 @@ public class Dispenser extends javax.swing.JFrame {
                 for(int columna = 0; columna<3;columna++){
                     if(tamaño!=0){ 
                         btnMatrix[fila][columna] = new DispenserButton(100*columna, 50*fila, 100,50, 
-                                currentRecipe.getIngredients()[tamaño-1], noIngredientsCb);
+                                currentRecipe.getIngredients()[tamaño-1], noIngredientsCb, 
+                                currentRecipe.getIngredients()[tamaño-1].getImageURL());
                         ButtonsPanel.add(btnMatrix[fila][columna]);
                         tamaño--;
                     }

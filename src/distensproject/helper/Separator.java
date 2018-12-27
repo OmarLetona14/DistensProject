@@ -19,7 +19,7 @@ public class Separator {
     double calories, price;
     Ingredient currentInventory;
     String nameRecipe, typeRecipe, sinSaltos, sinEspacios;
-    RandomNumber random = new RandomNumber();
+    RandomNumber random = RandomNumber.getSingletonInstance();
     
     public static int recipesPointer(){
         int count = 0;
