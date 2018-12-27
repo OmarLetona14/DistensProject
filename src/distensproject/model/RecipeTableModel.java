@@ -5,24 +5,15 @@
  */
 package distensproject.model;
 
+import distensproject.helper.Separator;
 import javax.swing.table.AbstractTableModel;
 
 
 public class RecipeTableModel extends AbstractTableModel{
     
-     public static Recipe[] reportRecipes = new Recipe[100];
     private final String[] columnNames = new String[]{
         "Nombre", "Tipo de receta", "Ganancias",
     };
-    
-    public static int pointer(){
-        int count = 0;
-        for(Recipe r: reportRecipes){
-            if(!(r==null)){
-                count += 1;
-            }
-        }return count;
-    }
     
     private final Class[] columnClass = new Class[] {
         String.class, String.class, double.class
@@ -46,13 +37,13 @@ public class RecipeTableModel extends AbstractTableModel{
     @Override
     public int getRowCount()
     {
-        return pointer();
+        return Separator.recipesPointer();
     }
     
     @Override
     public Object getValueAt(int rowIndex, int columnIndex)
     {
-        Recipe row = reportRecipes[rowIndex];
+        Recipe row = Separator.recipes[rowIndex];
         switch (columnIndex) {
             case 0:
                 return row.getName();
@@ -68,7 +59,7 @@ public class RecipeTableModel extends AbstractTableModel{
    public void setValueAt(Object aValue, int rowIndex, int columnIndex)
    {    
        Recipe instance = (Recipe)aValue;
-       Recipe row = reportRecipes[rowIndex];
+       Recipe row = Separator.recipes[rowIndex];
         switch (columnIndex) {
             case 0:
                 row.setName((String) instance.getName());

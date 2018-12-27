@@ -13,6 +13,7 @@ public class Report1 extends javax.swing.JFrame {
     Ingredient[] mostUsed = new Ingredient[100];
     int[] usedMatrix = new int[1000];
     int contador;
+    String most ="", minus="";
     Ingredient currentIngredient;
     
     public Report1() {
@@ -33,23 +34,24 @@ public class Report1 extends javax.swing.JFrame {
     }
     
     private void showMatrix(){
-        String most ="", minus="";
+        
         int size = usedMatrixPointer();    
         for(int i = 0;i<5;i++){
             if(i<size){
-                currentIngredient = getByUsed(usedMatrix[i]);
+                currentIngredient = getByUsed(usedMatrix[i], "most");
                 if(currentIngredient!=null){
-                    most +=  currentIngredient.getName()+ "\n";
+                    most += currentIngredient.getName() + ": " +currentIngredient.getUsed() + "\n";
                 }            
             }    
         }
-        
-        for(int j = size-1;contador==5;j--){
+        for(int j = size-1;contador<=5;j--){
             if(j<size){
-                currentIngredient = getByUsed(usedMatrix[j]);
-                if(currentIngredient!=null){
-                    minus += currentIngredient.getName() + "\n"; 
-                } 
+                if(j>=0){
+                    currentIngredient = getByUsed(usedMatrix[j], "minus");
+                    if(currentIngredient!=null){
+                        minus += currentIngredient.getName() + "\n"; 
+                    }
+                }
                 contador++;
             }           
         }
@@ -57,11 +59,19 @@ public class Report1 extends javax.swing.JFrame {
         moreTxtA.setText(most);
     }
     
-    private Ingredient getByUsed(int used){
+    private Ingredient getByUsed(int used, String type){
         for(Ingredient ingredient: InventoryTableModel.inventory){
             if(ingredient!=null){
                 if(ingredient.getUsed()==used){
-                    return ingredient;
+                    if(type.equals("most")){
+                        if(!most.contains(ingredient.getName())){
+                            return ingredient;
+                        }
+                    }else if(type.equals("minus")){
+                        if(!minus.contains(ingredient.getName())){
+                            return ingredient;
+                        }
+                    }
                 }
             }
         }
@@ -69,8 +79,12 @@ public class Report1 extends javax.swing.JFrame {
     }
     
     private void generateMatrix(){
-        for(int i=0; i<InventoryTableModel.pointer();i++){
-            usedMatrix[i] = InventoryTableModel.inventory[i].getUsed();
+        for(Ingredient ingredient: InventoryTableModel.inventory){
+            if(ingredient!=null){
+                if(ingredient.getUsed()!=0){
+                    usedMatrix[usedMatrixPointer()] = ingredient.getUsed();
+                }
+            }
         }
         burbuja(usedMatrix);
     }
@@ -118,6 +132,11 @@ public class Report1 extends javax.swing.JFrame {
         jLabel1.setText("5 ingredientes mas usados");
 
         acceptBtn.setText("Aceptar");
+        acceptBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acceptBtnActionPerformed(evt);
+            }
+        });
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("5 ingredientes menos usados");
@@ -160,6 +179,12 @@ public class Report1 extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void acceptBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptBtnActionPerformed
+        this.dispose();
+        Reports reports = new Reports();
+        reports.setVisible(true);
+    }//GEN-LAST:event_acceptBtnActionPerformed
 
     /**
      * @param args the command line arguments

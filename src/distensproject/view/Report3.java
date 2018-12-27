@@ -5,13 +5,30 @@
  */
 package distensproject.view;
 
+import distensproject.helper.Separator;
+import distensproject.model.Dispensed;
+import distensproject.model.Recipe;
+import java.util.Calendar;
+import javax.swing.JOptionPane;
 public class Report3 extends javax.swing.JFrame {
-
+    
+    String MOUTH[];
+    Recipe currentRecipe;
+    Dispensed currentDispensed;
+    String currentMouth, dispensedMouth, currentDispensedMouth, lineStr;
+    Calendar calendar = Calendar.getInstance(), currentCalendar = Calendar.getInstance();
+    int conteo;
     
     public Report3() {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
+        MOUTH =  new String[]{"Enero", "Febrero", 
+            "Marzo", "Abril", "Mayo", "Junio", "Julio",
+            "Agosto", "Septiembre", "Octubre", 
+            "Noviembre", "Diciembre"};
+        generateRecipesItems();
+        generateMouthItems();
     }
 
     /**
@@ -23,18 +40,18 @@ public class Report3 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbMouth = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cbRecipe = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        conteoTxtA = new javax.swing.JTextArea();
+        generateReportBtn = new javax.swing.JButton();
+        cancelBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {  }));
+        cbMouth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {  }));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Mes");
@@ -42,15 +59,25 @@ public class Report3 extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Receta");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
+        cbRecipe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        conteoTxtA.setColumns(20);
+        conteoTxtA.setRows(5);
+        jScrollPane1.setViewportView(conteoTxtA);
 
-        jButton1.setText("Generar reporte");
+        generateReportBtn.setText("Generar reporte");
+        generateReportBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generateReportBtnActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Cancelar");
+        cancelBtn.setText("Cancelar");
+        cancelBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -62,19 +89,19 @@ public class Report3 extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox1, 0, 152, Short.MAX_VALUE)
+                            .addComponent(cbMouth, 0, 152, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(57, 57, 57)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbRecipe, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(51, 51, 51)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(generateReportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47))
         );
         layout.setVerticalGroup(
@@ -86,20 +113,109 @@ public class Report3 extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbMouth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbRecipe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(cancelBtn)
+                    .addComponent(generateReportBtn))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
+        this.dispose();
+        Reports reports = new Reports();
+        reports.setVisible(true);
+    }//GEN-LAST:event_cancelBtnActionPerformed
+
+    private void generateReportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateReportBtnActionPerformed
+        conteoTxtA.setText("");
+        conteo=0;
+        currentRecipe = getSelectedRecipe();
+        currentMouth = getSelectedMouth();
+        if(currentRecipe!=null){
+            currentDispensed = getDispensed();
+            if(currentDispensed!=null){
+                calendar.setTime(currentDispensed.getCurrentDate());
+                dispensedMouth = MOUTH[calendar.get(Calendar.MONTH)];
+                for(Dispensed dispensed: Dispenser.dispensedList){
+                    if(dispensed!=null){
+                        currentCalendar.setTime(dispensed.getCurrentDate());
+                        currentDispensedMouth = MOUTH[currentCalendar.get(Calendar.MONTH)];
+                        if(dispensedMouth.equals(currentDispensedMouth)){
+                            if(currentDispensed.getRecipe()==dispensed.getRecipe()){
+                                conteo++;
+                            }
+                        }
+                    }
+                }
+                lineStr = "Receta: " + currentDispensed.getRecipe().getName()+ "\n"+
+                        "Mes: "+currentMouth + "\n"+
+                        "Veces dispensada: " +conteo + "\n";   
+                conteoTxtA.setText(lineStr);
+                
+            }else{
+                JOptionPane.showMessageDialog(this, "Esta receta no ha sido dispensada en el mes de "+currentMouth, "Error",
+                            JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_generateReportBtnActionPerformed
+    
+    private void generateRecipesItems(){
+        for(Recipe recipe: Separator.recipes){
+            if(recipe!=null){
+                cbRecipe.addItem(recipe.getName());
+            }
+        }
+    }
+    
+    private Dispensed getDispensed(){
+        for(Dispensed dispensed: Dispenser.dispensedList){
+            if(dispensed!=null){
+                if(dispensed.getRecipe()==currentRecipe){
+                    return dispensed;
+                }
+            }
+        }
+        return null;
+    }
+    
+    private String getSelectedMouth(){
+        for(String mouth: MOUTH){
+            if(mouth!=null){
+                if(mouth.equals(cbMouth.getSelectedItem())){
+                    return mouth;
+                }
+            }
+        }
+        return null;
+    }
+    
+    private void generateMouthItems(){
+        for(String mouth: MOUTH){
+            if(mouth!=null){
+                cbMouth.addItem(mouth);
+            }
+        }
+    }
+    
+    private Recipe getSelectedRecipe(){
+        for(Recipe recipe: Separator.recipes){
+            if(recipe!=null){
+                if(recipe.getName().equals(cbRecipe.getSelectedItem())){
+                    return recipe;
+                }
+            }
+        }
+        return null;
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -136,13 +252,13 @@ public class Report3 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JButton cancelBtn;
+    private javax.swing.JComboBox<String> cbMouth;
+    private javax.swing.JComboBox<String> cbRecipe;
+    private javax.swing.JTextArea conteoTxtA;
+    private javax.swing.JButton generateReportBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

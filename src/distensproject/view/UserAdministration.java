@@ -14,6 +14,8 @@ public class UserAdministration extends javax.swing.JFrame {
     
     public UserAdministration() {
         initComponents();
+        setLocationRelativeTo(null);
+        setResizable(false);
         usersTable.setModel(model);
     }
 
