@@ -22,7 +22,8 @@ public class RandomNumber {
     public static RandomNumber getSingletonInstance(){
         if(randomNumberInstance==null){
             randomNumberInstance = new RandomNumber();
-        }return randomNumberInstance;
+        }
+        return randomNumberInstance;
     }
     
 }

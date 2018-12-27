@@ -34,7 +34,7 @@ public class Report1 extends javax.swing.JFrame {
             }
         }return count;
     }
-    
+        
     private void showMatrix(){
         
         int size = usedMatrixPointer();    
@@ -46,7 +46,7 @@ public class Report1 extends javax.swing.JFrame {
                 }            
             }    
         }
-        for(int j = size-1;contador<=5;j--){
+        for(int j = size-1;contador<5;j--){
             if(j<size){
                 if(j>=0){
                     currentIngredient = getByUsed(usedMatrix[j], "minus");

@@ -17,7 +17,7 @@ public class Inventory extends javax.swing.JFrame {
     boolean  notSelectedTable=true;
     public static Ingredient currentInventory;
     int selected;
-    String emptyInventoryMessagge;
+    String emptyInventoryMessagge="";
     
     public Inventory() {
         initComponents();

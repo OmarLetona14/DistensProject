@@ -144,13 +144,12 @@ public class Report3 extends javax.swing.JFrame {
         if(currentRecipe!=null){
             currentDispensed = getDispensed();
             if(currentDispensed!=null){
-                calendar.setTime(currentDispensed.getCurrentDate());
-                dispensedMouth = MOUTH[calendar.get(Calendar.MONTH)];
+                
                 for(Dispensed dispensed: Dispenser.dispensedList){
                     if(dispensed!=null){
                         currentCalendar.setTime(dispensed.getCurrentDate());
                         currentDispensedMouth = MOUTH[currentCalendar.get(Calendar.MONTH)];
-                        if(dispensedMouth.equals(currentDispensedMouth)){
+                        if(currentMouth.equals(currentDispensedMouth)){
                             if(currentDispensed.getRecipe()==dispensed.getRecipe()){
                                 conteo++;
                                 counted = true;

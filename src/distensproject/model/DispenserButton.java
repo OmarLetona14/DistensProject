@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
-/*En esta clase se define el boton q*/
+/*En esta clase se define el boton que representará un ingrediente en el dispensador*/
 public class DispenserButton extends JButton implements ActionListener {
     
     private final Ingredient ingredient;
@@ -26,9 +26,7 @@ public class DispenserButton extends JButton implements ActionListener {
             setIcon(backgroundImageScaled);
         }catch(Exception e){}
         setText(ingredient.getName());
-        addActionListener(this);
-        
-        
+        addActionListener(this); 
     }
     
     private boolean restIngredient(){
