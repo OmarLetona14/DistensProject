@@ -143,8 +143,7 @@ public class Report3 extends javax.swing.JFrame {
         currentMouth = getSelectedMouth();
         if(currentRecipe!=null){
             currentDispensed = getDispensed();
-            if(currentDispensed!=null){
-                
+            if(currentDispensed!=null){   
                 for(Dispensed dispensed: Dispenser.dispensedList){
                     if(dispensed!=null){
                         currentCalendar.setTime(dispensed.getCurrentDate());
